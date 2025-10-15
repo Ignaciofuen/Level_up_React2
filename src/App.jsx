@@ -5,6 +5,11 @@ import { AuthProvider } from './auth/AuthContext'
 import Home from './pages/Home'
 import Carrito from './pages/carrito'
 import Productos from './pages/Productos'
+import Contacto from './pages/contacto'
+import Nosotros from './pages/nosotros'
+import Login from './pages/login'
+import Registro from './pages/registro'
+import Admin from './pages/admin'
 import AppNavbar from './components/AppNavbar'
 import Footer from './components/footer'
 import './App.css'
@@ -47,6 +52,11 @@ return (
 <Carrito items={carrito} onRemove={removeFromCart} onClear={clearCart} />
 /*</ProtectedRoute>*/
 } />
+<Route path="/contacto" element={<Contacto />} />
+<Route path="/nosotros" element={<Nosotros />} />
+<Route path="/login" element={<Login />} />
+<Route path="/registro" element={<Registro />} />
+<Route path="/admin" element={<Admin />} />
 </Routes>
 <Footer/>
 </Router>

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container, Table, Button, Alert} from 'react-bootstrap'
+import { Container, Table, Button, Alert } from 'react-bootstrap'
 
 
 export default function Carrito({ items, onRemove, onClear }){
@@ -45,7 +45,6 @@ return (
 <div className="d-flex gap-2">
 <Button variant="outline-secondary" onClick={onClear}>Vaciar</Button>
 <Button>Finalizar compra</Button>
-
 </div>
 </div>
 </>
