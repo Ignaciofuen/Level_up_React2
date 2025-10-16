@@ -48,9 +48,9 @@ return (
 <Route path="/" element={<Home/>} />
 <Route path="/Productos" element={<Productos onAdd={addToCart} />} />
 <Route path="/carrito" element={
-/*<ProtectedRoute>*/
+<ProtectedRoute>
 <Carrito items={carrito} onRemove={removeFromCart} onClear={clearCart} />
-/*</ProtectedRoute>*/
+</ProtectedRoute>
 } />
 <Route path="/contacto" element={<Contacto />} />
 <Route path="/nosotros" element={<Nosotros />} />

@@ -1,15 +1,21 @@
-import React from 'react'
-import { useAuth } from '../auth/AuthContext'
-import {Navbar, Nav, NavDropdown, Container,Badge} from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom'
+import React from 'react';
+import { useAuth } from '../auth/AuthContext';
+import { Navbar, Nav, NavDropdown, Container, Badge } from 'react-bootstrap';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-export default function AppNavbar ({ cartItems }) {
-  const { user, logout } = useAuth()
+export default function AppNavbar({ cartItems }) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-    return (
-    <Navbar fixed='top' collapseOnSelect expand="lg" variant = "dark"className="bg-custom navbar-level-up" >
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <Navbar fixed='top' collapseOnSelect expand="lg" variant="dark" className="bg-custom navbar-level-up">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/">Level Up Gamer</Navbar.Brand>
+        <Navbar.Brand as={NavLink} to="/">Level Up Gamer</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -18,21 +24,30 @@ export default function AppNavbar ({ cartItems }) {
             <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="Usuario" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="/login">Iniciar sesion</NavDropdown.Item>
-              <NavDropdown.Item href="/registro">Registrarse</NavDropdown.Item>
-              <NavDropdown.Item href="/admin">Administrador</NavDropdown.Item>
-            </NavDropdown>
+            {user ? (
+            
+              <NavDropdown title={`Hola, ${user.email}`} id="collapsible-nav-dropdown">
+                <NavDropdown.Item onClick={handleLogout}>
+                  Cerrar Sesión
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+            
+              <NavDropdown title="Usuario" id="collapsible-nav-dropdown">
+                <NavDropdown.Item as={NavLink} to="/login">Iniciar sesión</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/admin">Administrador</NavDropdown.Item>
+              </NavDropdown>
+            )}
+
             <Nav.Link as={NavLink} to="/carrito">Carrito</Nav.Link>
-              {' '}
-              <Badge className='contador'bg='green' >
-                {cartItems.length}
-              </Badge>
+            {' '}
+            <Badge className='contador' bg='success'>
+              {cartItems.length}
+            </Badge>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );        
-    
-
+  );
 }
