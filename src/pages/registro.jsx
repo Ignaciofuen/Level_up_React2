@@ -11,7 +11,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +22,45 @@ export default function Register() {
       return;
     }
 
+    
+    let role = 'user'; 
+
+    if (form.email === 'usuario@admin.cl') {
+      
+      if (form.password === 'admin999') {
+        role = 'admin';
+      } else {
+        setError('Contraseña incorrecta para el usuario administrador.');
+        return; 
+      }
+    }
+    
     try {
       setLoading(true);
-      await register(form);
-      await login(form);
-      navigate('/login');
-    } catch (err) {
-      setError(err.message);
+
+      
+      await register({ 
+        email: form.email, 
+        password: form.password, 
+        role: role  
+      });
+      
+ 
+      await login(form); 
+
+     
+      if (role === 'admin') {
+        navigate('/login'); 
+      } else {
+        navigate('/login'); 
+      }
+
+     } catch (err) {
+      if (err.code === 'auth/email-already-in-use') {
+        setError('Este correo electrónico ya está registrado.');
+      } else {
+        ('Error al registrar: ' + err.message);
+      }
     } finally {
       setLoading(false);
     }

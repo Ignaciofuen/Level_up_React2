@@ -22,6 +22,11 @@ export default function AppNavbar({ cartItems }) {
             <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
             <Nav.Link as={NavLink} to="/Productos">Productos</Nav.Link>
             <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
+            {user && user.role === 'admin' && (
+              <Nav.Link as={NavLink} to="/AdminHome" className="fw-bold text-danger">
+                Panel Admin
+              </Nav.Link>
+            )}
           </Nav>
           <Nav>
             {user ? (
@@ -36,7 +41,6 @@ export default function AppNavbar({ cartItems }) {
               <NavDropdown title="Usuario" id="collapsible-nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/login">Iniciar sesión</NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/admin">Administrador</NavDropdown.Item>
               </NavDropdown>
             )}
 

@@ -1,3 +1,4 @@
+
 :root{
 --brand-primary: #0d6efd; /* bootstrap primary */
 --brand-dark: #1c2530;
@@ -363,7 +364,7 @@ Img{
   }
 }
 
-/* Reglas generales para centrar logos en páginas como login/registro/admin */
+
 .login,
 .registro,
 .logo-center{
@@ -391,3 +392,54 @@ Img{
   }
 }
 
+.admin_card{
+  background-image: url('../assets/img/unnamed.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 40px;
+  width: 300px;
+  height: 400px;   
+  margin: 20px auto;
+    align-items: center;   
+    gap: 20px; 
+}
+
+.admin_card2{
+  background-image: url('../assets/img/suario.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 40px;
+  width: 300px;
+  height: 400px;   
+  margin: 20px auto;
+    align-items: center;   
+    gap: 20px; 
+}
+
+.admin_card3{
+  background-image: url('../assets/img/reporte_problemas.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 40px;
+  width: 300px;
+  height: 400px;   
+  margin: 20px auto;
+    align-items: center;   
+    gap: 20px; 
+}
+
+
+.imagen_admin{
+  width: 150px;
+  height: 150px;
+}
+
+.imagen_adm2{
+  width: 150px;
+  height: 150px;
+}
+
+.imagen_adm3{
+  width: 150px;
+  height: 150px;
+} 

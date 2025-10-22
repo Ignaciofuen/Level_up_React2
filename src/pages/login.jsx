@@ -24,11 +24,17 @@ export default function Login() {
 
     try {
       setLoading(true);
-      await login({ email, password });
-      navigate('/');
-    } catch (err) {
-      setError(err.message);
-    } finally {
+      const loggedInUser = await login({email,password});
+
+      if (loggedInUser.role === 'admin'){
+        navigate('/AdminHome');
+      }else{
+          navigate('/')
+      }
+      
+    }catch(err){
+      setError(err.message)
+    }finally{
       setLoading(false);
     }
   };

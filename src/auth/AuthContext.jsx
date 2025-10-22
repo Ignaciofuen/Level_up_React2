@@ -23,25 +23,25 @@ export function AuthProvider({ children }){
     localStorage.setItem(USERS_KEY, JSON.stringify(list))
   }
 
-  const register = ({ email, password }) => {
+  const register = ({ email, password , role }) => {
     const users = getUsers()
    
     const exists = users.some(u => u && u.email && u.email.toLowerCase() === email.toLowerCase());
     if(exists){ throw new Error('Este correo electrónico ya está en uso.') }
     
-    const newUser = { id: crypto.randomUUID(), email, password }
+    const newUser = { id: crypto.randomUUID(), email, password , role}
     users.push(newUser)
     saveUsers(users)
-    return { id: newUser.id, email }
+    return { id: newUser.id, email,role }
   }
 
-  const login = ({ email, password }) => {
+  const login = ({ email, password}) => {
     const users = getUsers()
     const match = users.find(u => u.email === email && u.password === password)
     if(!match){ throw new Error('Correo o contraseña inválidos.') }
     
     
-    const sessionUser = { id: match.id, email: match.email }
+    const sessionUser = { id: match.id, email: match.email, role: match.role }
     setUser(sessionUser)
     localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser))
     return sessionUser
