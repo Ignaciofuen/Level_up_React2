@@ -9,9 +9,13 @@ import Contacto from './pages/contacto'
 import Nosotros from './pages/nosotros'
 import Login from './pages/login'
 import Registro from './pages/registro'
+<<<<<<< HEAD
 import AdminHome from './pages/AdminHome'
 import GestionUser from './pages/GestionUsers'
 import GestionPro from './pages/GestionPro'
+=======
+import Admin from './pages/admin'
+>>>>>>> 64c4456147db47a7bea9f67480f1d93fae75ea9e
 import AppNavbar from './components/AppNavbar'
 import Footer from './components/footer'
 import './App.css'
@@ -19,6 +23,7 @@ import './styles/custom.css';
 
 
 
+<<<<<<< HEAD
 
 import pc2 from './assets/img/pc2.webp';
 import pc1 from './assets/img/pc1.avif';
@@ -52,6 +57,11 @@ const productosIniciales = [
 export default function App(){
 const [carrito, setCarrito] = useState([])
 const [products, setProducts] = useState(productosIniciales); 
+=======
+export default function App(){
+const [carrito, setCarrito] = useState([])
+
+>>>>>>> 64c4456147db47a7bea9f67480f1d93fae75ea9e
 
 // Persistir carrito opcionalmente
 useEffect(() => {
@@ -78,19 +88,31 @@ return (
 <AppNavbar  cartItems={carrito} />
 <Routes>
 <Route path="/" element={<Home/>} />
+<<<<<<< HEAD
 <Route path="/Productos" element={<Productos onAdd={addToCart}products={products} />} />
 <Route path="/carrito" element={
 <ProtectedRoute>
 <Carrito items={carrito} onRemove={removeFromCart} onClear={clearCart} />
 </ProtectedRoute>
+=======
+<Route path="/Productos" element={<Productos onAdd={addToCart} />} />
+<Route path="/carrito" element={
+/*<ProtectedRoute>*/
+<Carrito items={carrito} onRemove={removeFromCart} onClear={clearCart} />
+/*</ProtectedRoute>*/
+>>>>>>> 64c4456147db47a7bea9f67480f1d93fae75ea9e
 } />
 <Route path="/contacto" element={<Contacto />} />
 <Route path="/nosotros" element={<Nosotros />} />
 <Route path="/login" element={<Login />} />
 <Route path="/registro" element={<Registro />} />
+<<<<<<< HEAD
 <Route path="/AdminHome" element={<AdminHome/>} />
 <Route path="/GestionPro" element={<GestionPro products={products} setProducts={setProducts} />} />
 <Route path="/GestionUsers" element={<GestionUser/>} />
+=======
+<Route path="/admin" element={<Admin />} />
+>>>>>>> 64c4456147db47a7bea9f67480f1d93fae75ea9e
 </Routes>
 <Footer/>
 </Router>

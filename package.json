@@ -21,8 +21,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+<<<<<<< HEAD
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
+=======
+    "@testing-library/react": "github:testing-library/jest-dom",
+>>>>>>> 64c4456147db47a7bea9f67480f1d93fae75ea9e
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
