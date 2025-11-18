@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import Productos from '../src/pages/Productos';
 
 it('renderiza al menos un botón de "Agregar al carrito"', () => {
-  const productosDePrueba = [{ id: 1, nombre: 'Test', precio: 100 }];
+  const productosDePrueba = [{ id: 1, nombre: 'Test',imagen:["imagen.jpg"], precio: 100 }];
   const mockOnAdd = () => {};
 
-  render(<Productos productos={productosDePrueba} onAdd={mockOnAdd} />);
+  render(<Productos products={productosDePrueba} onAdd={mockOnAdd} />);
 
   const botones = screen.getAllByRole("button", { name: /Agregar al carrito/i });
 
