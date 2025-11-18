@@ -42,7 +42,7 @@ export default function Productos({ onAdd, products }) {
             <Card className="h-100 shadow-sm">
               <Card.Img
                 variant="top"
-                src={p.imagenes[0]}
+                src={p.imagenes?.[0]}
                 alt={p.nombre}
                 style={{ height: "200px", objectFit: "cover", width: "220px" }}
               />
