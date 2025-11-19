@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Table, Button, Form, Row, Col } from 'react-bootstrap';
+import { api } from '../config/api'; 
 
-// Estado inicial de el formulario
 const initialFormState = {
   nombre: '',
   precio: 0,
@@ -13,37 +13,55 @@ export default function GestionPro({ products, setProducts }) {
   const [newProduct, setNewProduct] = useState(initialFormState);
 
 
-  const handleAddProduct = (e) => {
-    e.preventDefault(); 
+  const handleAddProduct = async (e) => {
+    e.preventDefault();
     
-    //asignamos un nuevo ID al producto dependiendo del maximo id actual
-    const maxId = Math.max(...products.map(p => p.id), 0);
     
-    const productToAdd = {
-      ...newProduct,
-      id: maxId + 1, // Asignamos un ID nuevo
+    const productToSend = {
+      nombre: newProduct.nombre,
       precio: Number(newProduct.precio),
-      stock: Number(newProduct.stock),
-      imagenes: [], // Los productos nuevos no tendrán imagen
+   
+      stock: Number(newProduct.stock), 
+      descripcion: "Descripción pendiente", 
+      categoria: "General",
+      
+      imagen: "http://localhost:8080/images/pc2.webp" 
     };
 
-    // Añade el nuevo producto a la lista global
-    setProducts(prevProducts => [...prevProducts, productToAdd]);
+    try {
     
-    setNewProduct(initialFormState); // Resetea el formulario
+      const response = await api.post('/productos', productToSend);
+      
+     
+      setProducts([...products, response.data]);
+      
+      setNewProduct(initialFormState);
+      alert("¡Producto guardado en la base de datos!");
+
+    } catch (error) {
+      console.error("Error al guardar:", error);
+      alert("Error al conectar con el servidor");
+    }
   };
 
 
-   //Eliminar un producto de la lista
-   
-  const handleDeleteProduct = (productId) => {
+  const handleDeleteProduct = async (productId) => {
     if (!window.confirm('¿Estás seguro de que quieres eliminar este producto?')) {
       return;
     }
-    setProducts(prevProducts => prevProducts.filter(p => p.id !== productId));
+
+    try {
+    
+      await api.delete(`/productos/${productId}`);
+      
+      setProducts(prevProducts => prevProducts.filter(p => p.id !== productId));
+      
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      alert("No se pudo eliminar el producto (¿Tal vez está en un carrito?)");
+    }
   };
 
-  // Actualiza el estado 'newProduct' cada vez que el usuario escribe
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setNewProduct(prev => ({
@@ -57,7 +75,6 @@ export default function GestionPro({ products, setProducts }) {
       <div className="panel-container">
       <h2 className="page-title">Gestión de Productos</h2>
       <hr />
-
 
       <h4 className="mt-4">Añadir Nuevo Producto</h4>
       <Form onSubmit={handleAddProduct} className="mb-4 p-3 border rounded">
@@ -105,7 +122,8 @@ export default function GestionPro({ products, setProducts }) {
           </Col>
         </Row>
       </Form>
-      <h4 className="mt-5">Lista de Productos</h4>
+
+      <h4 className="mt-5">Lista de Productos (Base de Datos)</h4>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -122,6 +140,7 @@ export default function GestionPro({ products, setProducts }) {
               <td>{product.id}</td>
               <td>{product.nombre}</td>
               <td>${product.precio.toLocaleString("es-CL")}</td>
+              {/* El backend no siempre devuelve stock si no está en el DTO, manejamos el 0 */}
               <td>{product.stock || 0}</td>
               <td>
                 <Button 
@@ -140,4 +159,3 @@ export default function GestionPro({ products, setProducts }) {
     </Container>
   );
 }
-

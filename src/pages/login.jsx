@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+  import React, { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Image9 from "../assets/img/slogan2.png";
@@ -26,7 +26,7 @@ export default function Login() {
       setLoading(true);
       const loggedInUser = await login({email,password});
 
-      if (loggedInUser.role === 'admin'){
+      if(loggedInUser.rol && loggedInUser.rol.toLowerCase() === 'admin'){
         navigate('/AdminHome');
       }else{
           navigate('/')
