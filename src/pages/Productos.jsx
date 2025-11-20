@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
-
 export default function Productos({ onAdd, products }) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(3000000);
 
-  
   const filteredProductos = products.filter(
     (p) => p.precio >= minPrice && p.precio <= maxPrice
   );
@@ -42,14 +40,14 @@ export default function Productos({ onAdd, products }) {
             <Card className="h-100 shadow-sm">
               <Card.Img
                 variant="top"
-                src={p.imagenes?.[0]}
+                src={p.imagen} 
                 alt={p.nombre}
-                style={{ height: "200px", objectFit: "cover", width: "220px" }}
+                style={{ height: "200px", objectFit: "cover", width: "100%" }} 
               />
               <Card.Body className="d-flex flex-column justify-content-between">
                 <div>
                   <Card.Title className='titulo-producto'>{p.nombre}</Card.Title>
-                  <Card.Text  className='descripcion-pro'>{p.descripcion}</Card.Text>
+                  <Card.Text className='descripcion-pro'>{p.descripcion}</Card.Text>
                 </div>
                 <div>
                   <h5 className='total'>${p.precio.toLocaleString("es-CL")}</h5>

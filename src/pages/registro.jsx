@@ -50,9 +50,9 @@ const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
      
       if (role === 'admin') {
-        navigate('/login'); 
+        navigate('/AdminHome'); 
       } else {
-        navigate('/login'); 
+        navigate('/'); 
       }
 
      } catch (err) {

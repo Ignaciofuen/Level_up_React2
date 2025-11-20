@@ -1,57 +1,71 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { api } from '../config/api'; 
 
-const AuthContext = createContext(null)
-export const useAuth = () => useContext(AuthContext)
+const AuthContext = createContext(null);
 
-const USERS_KEY = 'tg_users'
-const SESSION_KEY = 'tg_session'
+export const useAuth = () => useContext(AuthContext);
 
-export function AuthProvider({ children }){
-  const [user, setUser] = useState(null)
+const SESSION_KEY = 'user_session';
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
-    const raw = localStorage.getItem(SESSION_KEY)
-    if(raw){ setUser(JSON.parse(raw)) }
-  }, [])
+    const storedSession = localStorage.getItem(SESSION_KEY);
+    if (storedSession) {
+      setUser(JSON.parse(storedSession));
+    }
+  }, []);
 
-  const getUsers = () => {
-    const raw = localStorage.getItem(USERS_KEY)
-    return raw ? JSON.parse(raw) : []
-  }
+  
+  const login = async ({ email, password }) => {
+    try {
+      
+      const response = await api.post('/auth/login', { email, password });
 
-  const saveUsers = (list) => {
-    localStorage.setItem(USERS_KEY, JSON.stringify(list))
-  }
+      const userData = response.data; 
 
-  const register = ({ email, password , role }) => {
-    const users = getUsers()
-   
-    const exists = users.some(u => u && u.email && u.email.toLowerCase() === email.toLowerCase());
-    if(exists){ throw new Error('Este correo electrónico ya está en uso.') }
+      
+      setUser(userData);
+      localStorage.setItem(SESSION_KEY, JSON.stringify(userData));
+
+      return userData;
+
+    } catch (error) {
+      console.error("Error en login:", error);
+      
+      const mensajeError = error.response?.data || 'Error al iniciar sesión';
+      throw new Error(mensajeError);
+    }
+  };
+
+  const register = async ({ email, password, role }) => {
+    try {
     
-    const newUser = { id: crypto.randomUUID(), email, password , role}
-    users.push(newUser)
-    saveUsers(users)
-    return { id: newUser.id, email,role }
-  }
+      const response = await api.post('/auth/registro', {
+        email,
+        password,
+        rol: role 
+      });
 
-  const login = ({ email, password}) => {
-    const users = getUsers()
-    const match = users.find(u => u.email === email && u.password === password)
-    if(!match){ throw new Error('Correo o contraseña inválidos.') }
-    
-    
-    const sessionUser = { id: match.id, email: match.email, role: match.role }
-    setUser(sessionUser)
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser))
-    return sessionUser
-  }
+      return response.data;
 
+    } catch (error) {
+      console.error("Error en registro:", error);
+      const mensajeError = error.response?.data || 'Error al registrar usuario';
+      throw new Error(mensajeError);
+    }
+  };
+
+  
   const logout = () => {
-    setUser(null)
-    localStorage.removeItem(SESSION_KEY)
-  }
+    setUser(null);
+    localStorage.removeItem(SESSION_KEY);
+   
+  };
 
-  const value = { user, register, login, logout }
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  const value = { user, login, register, logout };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

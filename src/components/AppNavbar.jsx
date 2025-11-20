@@ -22,7 +22,7 @@ export default function AppNavbar({ cartItems }) {
             <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
             <Nav.Link as={NavLink} to="/Productos">Productos</Nav.Link>
             <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
-            {user && user.role === 'admin' && (
+            {user && user.rol && user.rol.toLowerCase() === 'admin' && (
               <Nav.Link as={NavLink} to="/AdminHome" className="fw-bold text-danger">
                 Panel Admin
               </Nav.Link>
