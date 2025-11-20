@@ -58,7 +58,7 @@ export default function GestionUsers() {
 
         try {
           
-            await api.delete(`/usuarios/${userId}`); 
+            await api.delete(`/auth/usuarios/${userId}`); 
             setUsers(prev => prev.filter(u => u.idusu !== userId));
         } catch (err) {
             console.error("Error al eliminar:", err);
