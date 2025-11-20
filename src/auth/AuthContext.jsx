@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
   
   const login = async ({ email, password }) => {
     try {
-      // Enviamos los datos al backend
+      
       const response = await api.post('/auth/login', { email, password });
 
       const userData = response.data; 
@@ -58,12 +58,11 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // 4. LOGOUT: Limpia todo
+  
   const logout = () => {
     setUser(null);
     localStorage.removeItem(SESSION_KEY);
-    // Opcional: Si quieres borrar el carrito local al salir
-    // localStorage.removeItem('tg_cart'); 
+   
   };
 
   const value = { user, login, register, logout };

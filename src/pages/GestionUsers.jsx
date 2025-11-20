@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Row, Col, Alert } from 'react-bootstrap';
-import { api } from '../config/api'; // Importar Axios
+import { api } from '../config/api'; 
 
 const initialFormState = {
     email: '',
@@ -27,7 +27,7 @@ export default function GestionUsers() {
         }
     };
 
-    // 2. CREAR USUARIO (Backend)
+    // CREAR USUARIO 
     const handleAddUser = async (e) => {
         e.preventDefault();
         setError('');

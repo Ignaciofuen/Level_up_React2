@@ -40,9 +40,9 @@ export default function Productos({ onAdd, products }) {
             <Card className="h-100 shadow-sm">
               <Card.Img
                 variant="top"
-                src={p.imagen} // <--- ¡CORREGIDO! (Backend envía un string único)
+                src={p.imagen} 
                 alt={p.nombre}
-                style={{ height: "200px", objectFit: "cover", width: "100%" }} // Ajusté width para que se vea bien
+                style={{ height: "200px", objectFit: "cover", width: "100%" }} 
               />
               <Card.Body className="d-flex flex-column justify-content-between">
                 <div>
